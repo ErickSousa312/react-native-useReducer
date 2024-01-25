@@ -22,8 +22,8 @@ export default function CustomDrawerContent(props:any){
             <DrawerItem 
             label={'Logout'} 
             onPress={()=>console.log('oi')} 
-            icon={()=><Ionicons name="arrow-undo" size={20}></Ionicons>}
-            labelStyle={{marginLeft:-15}}
+            icon={()=><Ionicons style={{alignSelf:'center', position:'relative', left:80}} name="arrow-undo" size={20}></Ionicons>}
+            labelStyle={{alignSelf:'center',}}
             >
             </DrawerItem>            
         </View>
@@ -36,6 +36,7 @@ export default function CustomDrawerContent(props:any){
 
 const styles = StyleSheet.create({
     button: {
+      alignItems: 'center',
         backgroundColor:'blue',
       flexDirection:'row',
     },
