@@ -1,0 +1,17 @@
+dentro do config json de user do vs code 
+
+
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+      ],
+
+restart server ESLint: Restart ESLint Server
+
+install dependences 
+npm install --save-dev @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-prettier eslint-plugin-import eslint-plugin-prettier eslint-plugin-react eslint-plugin-simple-import-sort pre-commit prettier 
