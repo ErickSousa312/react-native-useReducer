@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
+    "@react-native-community/checkbox": "^0.5.17",
     "@react-navigation/drawer": "^6.6.6",
+    "@wuba/react-native-echarts": "^1.2.5",
     "expo": "~50.0.2",
     "expo-constants": "~15.4.5",
     "expo-linking": "~6.2.2",

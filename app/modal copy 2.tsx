@@ -1,19 +1,52 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet } from 'react-native';
-
+import { useReducer } from 'react';
+import TaskList from '@/components/takeList';
+import { tasksReducer } from '@/utils/reducer/TaskReducer';
+import { Action } from '@/@types/forms';
+import { initialTasks } from '@/components/takeList';
 import EditScreenInfo from '@/components/EditScreenInfo';
+import AddTask from '@/components/addTask';
+import { SafeAreaView } from 'react-native';
+
 import { Text, View } from '@/components/Themed';
+import { DispatchType } from '../@types/forms';
 
-export default function ModalScreen() {
+export default function Forms() {
+  let nextId = 3;
+  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+
+  function handleAddTask(text: string) {
+    dispatch({
+      type: 'added',
+      id: nextId++,
+      text: text,
+    });
+  }
+
+  function handleChangeTask(task: any) {
+    dispatch({
+      type: 'changed',
+      task: task,
+    });
+  }
+
+  function handleDeleteTask(taskId: any) {
+    dispatch({
+      type: 'deleted',
+      id: taskId,
+    });
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Modal</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
- 
-
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </View>
+    <SafeAreaView>
+      <AddTask onAddTask={handleAddTask} />
+      <TaskList
+        tasks={tasks}
+        onChangeTask={handleChangeTask}
+        onDeleteTask={handleDeleteTask}
+      />
+    </SafeAreaView>
   );
 }
 

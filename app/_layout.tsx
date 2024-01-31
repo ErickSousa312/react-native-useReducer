@@ -7,25 +7,6 @@ import CustomDrawerContent from '@/components/customDrawer';
 import { LogBox } from 'react-native';
 import React from 'react';
 LogBox.ignoreLogs(['Reanimated']);
-//suprimir aviso reanimated
-// function HomeScreen({ navigation }: any): React.JSX.Element {
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <Button
-//         onPress={() => navigation.navigate("Notifications")}
-//         title="Go to notifications"
-//       />
-//     </View>
-//   );
-// }
-
-// function NotificationsScreen({ navigation }: any) {
-//   return (
-//     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-//       <Button onPress={() => navigation.goBack()} title="Go back home" />
-//     </View>
-//   );
-// }
 
 export default function App() {
   return (
@@ -34,8 +15,8 @@ export default function App() {
         <Drawer.Screen
           name="index"
           options={{
-            drawerLabel: 'Home',
-            title: 'overview1',
+            drawerLabel: 'Dashboard',
+            title: 'Dashboard',
             drawerIcon: () => <Ionicons name="home" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}
