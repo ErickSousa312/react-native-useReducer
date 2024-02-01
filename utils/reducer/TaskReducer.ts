@@ -15,8 +15,8 @@ export function tasksReducer(tasks: Tasks, action: Partial<Action>): Tasks {
     }
     case 'changed': {
       return tasks.map((t) => {
-        if (t.id === action.id) {
-          return action as Action;
+        if (t.id === action.task?.id) {
+          return action.task;
         } else {
           return t;
         }

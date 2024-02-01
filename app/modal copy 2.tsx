@@ -25,6 +25,7 @@ export default function Forms() {
   }
 
   function handleChangeTask(task: any) {
+    console.log(task);
     dispatch({
       type: 'changed',
       task: task,

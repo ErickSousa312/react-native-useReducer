@@ -1,5 +1,4 @@
-dentro do config json de user do vs code 
-
+1 - dentro do config json user do vs code 
 
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true,
@@ -11,6 +10,7 @@ dentro do config json de user do vs code
         "typescriptreact"
       ],
 
+2 - usar o comando abaixo para inicializar o eslint em caso de mudança no arquivo
 restart server ESLint: Restart ESLint Server
 
 install dependences 

@@ -25,6 +25,7 @@ export default function App() {
           name="modal copy 2"
           options={{
             drawerLabel: 'Meta Venda',
+            title: 'Lista',
             drawerPosition: 'left',
             drawerType: 'front',
             drawerIcon: () => <Ionicons name="albums" size={20}></Ionicons>,

@@ -1,7 +1,8 @@
 import { ReducerState, useState } from 'react';
 import { Taks, Tasks } from '@/@types/forms';
-import { TextInput, Button } from 'react-native';
+import { TextInput, Button, FlatList, Text, SafeAreaView } from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
+import { View } from './Themed';
 
 type props = {
   tasks: Tasks;
@@ -11,24 +12,28 @@ type props = {
 
 export default function TaskList({ tasks, onChangeTask, onDeleteTask }: props) {
   return (
-    <>
-      {tasks.map((task: any) => (
-        <Task task={task} onChange={onChangeTask} onDelete={onDeleteTask} />
+    <SafeAreaView>
+      {tasks.map((task) => (
+        <View key={task.id}>
+          <Task task={task} onChange={onChangeTask} onDelete={onDeleteTask} />
+        </View>
       ))}
-    </>
+    </SafeAreaView>
   );
 }
 
-function Task({ task, onChange, onDelete }: any) {
+function Task({ index, task, onChange, onDelete }: any) {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   let taskContent;
+  console.log(isEditing);
   if (isEditing) {
     taskContent = (
       <>
         <TextInput
           value={task.text}
-          onChange={(text) => {
+          onChangeText={(text) => {
+            console.log(task);
             onChange({
               ...task,
               text: text,
@@ -41,13 +46,14 @@ function Task({ task, onChange, onDelete }: any) {
   } else {
     taskContent = (
       <>
-        {task.text}
+        <Text>{task.text}</Text>
         <Button title="Edit" onPress={() => setIsEditing(true)}></Button>
       </>
     );
   }
   return (
     <>
+      <View>{taskContent}</View>
       <Button title="Delete" onPress={() => onDelete(task.id)}></Button>
     </>
   );

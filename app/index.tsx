@@ -31,7 +31,7 @@ function SkiaComponent({ option }: any) {
     let chart: any;
     if (skiaRef.current) {
       // @ts-ignore
-      chart = echarts.init(skiaRef.current, 'light', {
+      chart = echarts.init(skiaRef.current, 'dark', {
         renderer: 'svg',
         width: E_WIDTH,
         height: E_HEIGHT,
@@ -51,7 +51,7 @@ function SvgComponent({ option }: any) {
     let chart: any;
     if (svgRef.current) {
       // @ts-ignore
-      chart = echarts.init(svgRef.current, 'light', {
+      chart = echarts.init(svgRef.current, 'dark', {
         renderer: 'svg',
         width: E_WIDTH,
         height: E_HEIGHT,
@@ -74,7 +74,7 @@ const option = {
   },
   series: [
     {
-      data: [120, 200, 150, 80, 70, 110, 130],
+      data: [100, 200, 150, 80, 70, 110, 130],
       type: 'bar',
     },
   ],
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#100C2A',
   },
 });
 export default gestureHandlerRootHOC(ModalScreen);
