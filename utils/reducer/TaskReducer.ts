@@ -4,6 +4,7 @@ import { initialTasks } from '@/components/takeList';
 export function tasksReducer(tasks: Tasks, action: Partial<Action>): Tasks {
   switch (action.type) {
     case 'added': {
+      console.log(action.id!);
       return [
         ...tasks,
         {

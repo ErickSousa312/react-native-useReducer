@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet } from 'react-native';
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import TaskList from '@/components/takeList';
 import { tasksReducer } from '@/utils/reducer/TaskReducer';
 import { Action } from '@/@types/forms';
@@ -13,13 +13,14 @@ import { Text, View } from '@/components/Themed';
 import { DispatchType } from '../@types/forms';
 
 export default function Forms() {
-  let nextId = 3;
   const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
-
+  const [idTaks, setIdTaks] = useState<number>(3);
   function handleAddTask(text: string) {
+    setIdTaks(idTaks + 1);
+    console.log(idTaks + 'oi');
     dispatch({
       type: 'added',
-      id: nextId++,
+      id: idTaks,
       text: text,
     });
   }
