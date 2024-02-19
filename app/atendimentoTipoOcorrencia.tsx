@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, Button, Dimensions } from 'react-native';
+import { StyleSheet, ScrollView, Button } from 'react-native';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { SkiaComponent } from '@/components/echarts/graficEcharts';
 import { AxiosGet } from '@/components/axios/axiosGet';
-import { TableData } from '@/components/viewsTables/tableData2';
+import { TableData } from '@/components/viewsTables/tableData';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View } from '@/components/Themed';
 
@@ -14,78 +14,66 @@ function ModalScreen() {
 
   const fetchData = async () => {
     try {
-      const response = await AxiosGet('atendimentoMotivosOcorrencia');
-      console.log(response.data);
+      const response = await AxiosGet('atendimentoTipoOcorrencia');
       setDataFetch(response.data);
+      console.log(response.data);
 
-      const arrayString = response.data.map((item: any) =>
-        String(item.MotivoDS),
-      );
+      const arrayString = response.data.map((item: any) => String(item.TipoDS));
 
       setData((prevState) => ({
         ...prevState,
-        with: 500,
+        color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
         title: {
-          text: 'Atendimentos por motivos',
+          text: 'Atendimentos por Tipo',
           left: 'center',
-          top: '0%',
+          top: '1%',
         },
         tooltip: {
           trigger: 'item',
         },
         legend: {
-          bottom: '',
+          bottom: '1%',
           left: 'center',
           Data: arrayString,
         },
         grid: {
-          top: '7%',
+          top: '0%',
           left: '0%',
           right: '0%',
           bottom: '0%',
           containLabel: true,
         },
-        xAxis: {
-          type: 'value',
-          boundaryGap: [0, 0.12],
-          axisLabel: { interval: 0, rotate: 0 },
-          with: '100',
-        },
-        yAxis: {
-          type: 'category',
-          data: arrayString,
-        },
         series: [
           {
             label: {
-              formatter: '{d|{c}}',
+              formatter: '{d|{d}%}',
               show: true,
-              position: 'right',
               size: 40,
               lineHeight: 56,
               rich: {
                 d: {
-                  color: 'white',
+                  color: '#4C5058',
+                  padding: [10, 10, 10, 10],
                   fontSize: 14,
                   fontWeight: 'bold',
                   lineHeight: 33,
-                  marginLeft: 0,
+                  marginLeft: 100,
                 },
               },
             },
             labelLine: {
-              show: false,
+              show: true,
               length: 10,
+              length2: 10,
             },
-            barWidth: '10%',
-            roseType: 'area',
+            radius: ['30%', '60%'],
             avoidLabelOverlap: false,
-            type: 'bar',
+            type: 'pie',
             itemStyle: {
               borderRadius: 8,
             },
             data: response.data.map((item: any) => ({
-              name: item.VeiculoDS !== null ? item.VeiculoDS : 'Não informado',
+              name: item.TipoDS !== null ? item.TipoDS : 'Não informado',
               value: item.Total_Ocorrencias,
             })),
             emphasis: {
@@ -108,17 +96,17 @@ function ModalScreen() {
   }, []);
 
   return (
-    <ScrollView horizontal={false} style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.button}>
         <Icon
           name="reload"
           size={30}
           color="white"
           onPress={fetchData}
-          style={{ paddingHorizontal: 4, paddingVertical: 4 }}
+          style={{ paddingHorizontal: 10, paddingVertical: 10 }}
         />
       </View>
-      <></>
+      <SkiaComponent option={option} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>
   );

@@ -1,128 +1,95 @@
 import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView, Button } from 'react-native';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
-import { SVGRenderer, SkiaChart, SvgChart } from '@wuba/react-native-echarts';
-import * as echarts from 'echarts/core';
-import { BarChart } from 'echarts/charts';
-import axios from 'axios';
-import {
-  TitleComponent,
-  TooltipComponent,
-  GridComponent,
-} from 'echarts/components';
-
-// register extensions
-echarts.use([
-  TitleComponent,
-  TooltipComponent,
-  GridComponent,
-  SVGRenderer,
-  // ...
-  BarChart,
-]);
-
-const E_HEIGHT = 320;
-const E_WIDTH = Dimensions.get('screen').width + 15;
-
-function SkiaComponent({ option }: any) {
-  const skiaRef = useRef<any>(null);
-
-  useEffect(() => {
-    let chart: any;
-    if (skiaRef.current) {
-      // @ts-ignore
-      chart = echarts.init(skiaRef.current, 'dark', {
-        renderer: 'svg',
-        width: E_WIDTH,
-        height: E_HEIGHT,
-      });
-      chart.setOption(option);
-    }
-    return () => chart?.dispose();
-  }, [option]);
-
-  return <SkiaChart style={{ marginLeft: 12 }} ref={skiaRef} />;
-}
-
-function SvgComponent({ option }: any) {
-  const svgRef = useRef<any>(null);
-
-  useEffect(() => {
-    let chart: any;
-    if (svgRef.current) {
-      // @ts-ignore
-      chart = echarts.init(svgRef.current, 'dark', {
-        renderer: 'svg',
-        width: E_WIDTH,
-        height: E_HEIGHT,
-      });
-      chart.setOption(option);
-    }
-    return () => chart?.dispose();
-  }, [option]);
-
-  return <SvgChart style={{ marginLeft: 29 }} ref={svgRef} useRNGH />;
-}
+import { SkiaComponent } from '@/components/echarts/graficEcharts';
+import { AxiosGet } from '@/components/axios/axiosGet';
+import { TableData } from '@/components/viewsTables/tableData';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { View } from '@/components/Themed';
 
 function ModalScreen() {
-  const [option, setData] = useState({
-    xAxis: {
-      type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    },
-    yAxis: {
-      type: 'value',
-    },
-    series: [
-      {
-        data: [100, 200, 150, 80, 70, 110, 130],
-        type: 'bar',
-      },
-    ],
-  });
+  const [option, setData] = useState({});
+  const [dataFetch, setDataFetch] = useState();
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://192.168.100.133:3000/hello');
-
-      response.data.forEach((item: any) => {
-        item.VeiculoDS = item.VeiculoDS.replace(/\s/g, '');
-        item.VeiculoDS = item.VeiculoDS.replace(/01(?!\d)/g, '1');
-        item.VeiculoDS = item.VeiculoDS.replace(/02(?!\d)/g, '2');
-        const hyphenIndex = item.VeiculoDS.indexOf('-');
-        if (hyphenIndex !== -1) {
-          const secondHyphenIndex = item.VeiculoDS.indexOf(
-            '-',
-            hyphenIndex + 1,
-          );
-          if (secondHyphenIndex !== -1) {
-            const firstPart = item.VeiculoDS.slice(0, secondHyphenIndex).trim();
-            item.VeiculoDS = firstPart;
-          }
-        }
-        item.VeiculoDS = item.VeiculoDS.replace('MARABA', 'MAB');
-        item.VeiculoDS = item.VeiculoDS.replace(/-{2,}/g, '-');
-      });
+      const response = await AxiosGet('atendimentosSexo');
+      setDataFetch(response.data);
       console.log(response.data);
       const totalAtendimentosArray = response.data.map(
-        (item: any) => item.total_atendimentos,
+        (item: any) => item.Total_Ocorrencias,
       );
-      const labelVeiculos = response.data.map((item: any) => item.VeiculoDS);
+      const arrayString = response.data.map((item: any) =>
+        String(item.Total_Ocorrencias),
+      );
+
+      console.log(arrayString);
+      const labelVeiculos = response.data.map((item: any) => item.SexoDS);
 
       setData((prevState) => ({
         ...prevState,
-        xAxis: {
-          type: 'category',
-          data: labelVeiculos,
-          yAxis: {
-            type: 'value',
-          },
+        color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
+        title: {
+          text: 'Atendimentos por Sexo',
+          left: 'center',
+          top: '1%',
+        },
+        tooltip: {
+          trigger: 'item',
+        },
+        legend: {
+          bottom: '1%',
+          left: 'center',
+          Data: arrayString,
+        },
+        grid: {
+          top: '0%',
+          left: '0%',
+          right: '0%',
+          bottom: '0%',
+          containLabel: true,
         },
         series: [
           {
-            data: totalAtendimentosArray,
-            type: 'bar',
+            label: {
+              formatter: '{d|%{d}}',
+              show: true,
+              position: 'inside',
+              size: 40,
+              length: 200,
+              lineHeight: 56,
+              rich: {
+                d: {
+                  color: '#4C5058',
+                  padding: [10, 10, 10, 10],
+                  fontSize: 14,
+                  fontWeight: 'bold',
+                  lineHeight: 33,
+                  marginLeft: 100,
+                },
+              },
+            },
+            labelLine: {
+              show: false,
+            },
+            radius: ['30%', '60%'],
+            avoidLabelOverlap: false,
+            type: 'pie',
+            itemStyle: {
+              borderRadius: 8,
+            },
+            data: response.data.map((item: any) => ({
+              name: item.SexoDS !== null ? item.SexoDS : 'Não informado',
+              value: item.Total_Ocorrencias,
+            })),
+            emphasis: {
+              itemStyle: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)',
+              },
+            },
           },
         ],
       }));
@@ -136,19 +103,32 @@ function ModalScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <View style={styles.button}>
+        <Icon
+          name="reload"
+          size={30}
+          color="white"
+          onPress={fetchData}
+          style={{ paddingHorizontal: 10, paddingVertical: 10 }}
+        />
+      </View>
       <SkiaComponent option={option} />
-      <SvgComponent option={option} />
-    </View>
+      <TableData dados={dataFetch}></TableData>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: '#100C2A',
+    width: 'auto',
+  },
+  button: {
+    backgroundColor: '#100C2A',
+    marginLeft: 2,
+    alignSelf: 'flex-end',
   },
 });
 export default gestureHandlerRootHOC(ModalScreen);

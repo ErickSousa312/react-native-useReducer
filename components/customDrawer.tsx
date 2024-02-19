@@ -13,6 +13,7 @@ import {
 import { Entypo, Ionicons } from '@expo/vector-icons';
 import Color from 'color';
 import { Link, useTheme } from '@react-navigation/native';
+
 export default function CustomDrawerContent(props: any) {
   const { colors } = useTheme();
   const erick = Color(colors.text).alpha(0.68).rgb().string();
@@ -23,6 +24,7 @@ export default function CustomDrawerContent(props: any) {
         <DrawerItemList {...props} />
         {/* <DrawerItem label={"teste"} onPress={()=>router.replace('/')}/>   */}
       </DrawerContentScrollView>
+
       <View style={{ paddingBottom: 5 + bottom }}>
         <View style={styles.borda}></View>
         <DrawerItem

@@ -17,49 +17,52 @@ export default function App() {
           options={{
             drawerLabel: 'Dashboard',
             title: 'Dashboard',
+            drawerType: 'slide',
             drawerIcon: () => <Ionicons name="home" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}
         />
         <Drawer.Screen
-          name="modal copy 2"
+          name="TodoList"
           options={{
             drawerLabel: 'Meta Venda',
             title: 'Lista',
             drawerPosition: 'left',
-            drawerType: 'front',
+            drawerType: 'slide',
             drawerIcon: () => <Ionicons name="albums" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}
         />
         {/* //3 */}
         <Drawer.Screen
-          name="modal copy 3"
+          name="atendimentoFaixaEtaria"
           options={{
-            drawerLabel: 'Meta Vitaminas',
+            title: 'Dashboard',
+            drawerLabel: 'Atendimentos por Faixa Etária',
             drawerPosition: 'left',
-            drawerType: 'front',
+            drawerType: 'slide',
             drawerIcon: () => <Ionicons name="cellular" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}
         />
         {/* //4 */}
         <Drawer.Screen
-          name="modal copy 4"
+          name="atendimentoTipoOcorrencia"
           options={{
-            drawerLabel: 'Nossas Marcas',
+            title: 'Dashboard',
+            drawerLabel: 'Atendimentos por Tipo',
             drawerPosition: 'left',
-            drawerType: 'front',
+            drawerType: 'slide',
             drawerIcon: () => <Ionicons name="compass" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}
         />
         <Drawer.Screen
-          name="modal copy 5"
+          name="atendimentoVeiculo"
           options={{
-            drawerLabel: 'Varejo',
+            drawerLabel: 'atendimento por Veiculo',
             drawerPosition: 'left',
-            drawerType: 'front',
+            drawerType: 'slide',
             drawerIcon: () => <Ionicons name="bag-add" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}
@@ -69,7 +72,7 @@ export default function App() {
           options={{
             drawerLabel: 'Dermo',
             drawerPosition: 'left',
-            drawerType: 'front',
+            drawerType: 'slide',
             drawerIcon: () => <Ionicons name="pulse" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}
@@ -79,7 +82,7 @@ export default function App() {
           options={{
             drawerLabel: 'Cmv',
             drawerPosition: 'left',
-            drawerType: 'front',
+            drawerType: 'slide',
             drawerIcon: () => <Ionicons name="shapes" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}
@@ -89,7 +92,7 @@ export default function App() {
           options={{
             drawerLabel: 'Pec',
             drawerPosition: 'left',
-            drawerType: 'front',
+            drawerType: 'slide',
             drawerIcon: () => <Ionicons name="pie-chart" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}

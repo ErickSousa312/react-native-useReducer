@@ -4,7 +4,7 @@ import { StyleSheet, ScrollView, Button, Dimensions } from 'react-native';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { SkiaComponent } from '@/components/echarts/graficEcharts';
 import { AxiosGet } from '@/components/axios/axiosGet';
-import { TableData } from '@/components/viewsTables/tableData2';
+import { TableData } from '@/components/viewsTables/tableData';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View } from '@/components/Themed';
 
@@ -14,19 +14,18 @@ function ModalScreen() {
 
   const fetchData = async () => {
     try {
-      const response = await AxiosGet('atendimentoMotivosOcorrencia');
-      console.log(response.data);
+      const response = await AxiosGet('atendimentoVeiculo');
       setDataFetch(response.data);
 
       const arrayString = response.data.map((item: any) =>
-        String(item.MotivoDS),
+        String(item.VeiculoDS),
       );
 
       setData((prevState) => ({
         ...prevState,
         with: 500,
         title: {
-          text: 'Atendimentos por motivos',
+          text: 'Atendimentos por Veiculo',
           left: 'center',
           top: '0%',
         },
@@ -83,6 +82,7 @@ function ModalScreen() {
             type: 'bar',
             itemStyle: {
               borderRadius: 8,
+              with: '100%',
             },
             data: response.data.map((item: any) => ({
               name: item.VeiculoDS !== null ? item.VeiculoDS : 'Não informado',
@@ -118,7 +118,7 @@ function ModalScreen() {
           style={{ paddingHorizontal: 4, paddingVertical: 4 }}
         />
       </View>
-      <></>
+      <SkiaComponent option={option} width={-20} height={800} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>
   );
