@@ -78,9 +78,10 @@ export default function App() {
           }}
         />
         <Drawer.Screen
-          name="modal copy 7"
+          name="(tabsAtendimentosMotivos)"
           options={{
-            drawerLabel: 'Cmv',
+            title: 'Atendimentos por motivo',
+            drawerLabel: 'Atendimentos por motivo',
             drawerPosition: 'left',
             drawerType: 'slide',
             drawerIcon: () => <Ionicons name="shapes" size={20}></Ionicons>,
