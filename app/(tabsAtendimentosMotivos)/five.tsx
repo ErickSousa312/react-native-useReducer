@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, Button, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  Button,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { SkiaComponent } from '@/components/echarts/graficEcharts';
 import { AxiosGet } from '@/components/axios/axiosGet';
@@ -11,81 +17,76 @@ import { View } from '@/components/Themed';
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
+  const [refreshing, setRefreshing] = useState(true);
 
   const fetchData = async () => {
     try {
-      const response = await AxiosGet('atendimentoMotivosOcorrencia');
-      console.log(response.data);
+      const response = await AxiosGet(
+        'atendimentoMotivosOcorrencia',
+        'CAUSAS EXTERNAS',
+      );
+      setRefreshing(false);
       setDataFetch(response.data);
 
-      const arrayString = response.data.map((item: any) =>
-        String(item.MotivoDS),
-      );
+      const arrayString = response.data.map((item: any, index: number) => {
+        String(item.MotivoDS);
+        console.log(index + 'oiiiiiiiiiiiiiiiiiii');
+      });
 
       setData((prevState) => ({
         ...prevState,
-        with: 500,
+        color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
         title: {
-          text: 'Atendimentos por motivos',
+          text: 'Atendimentos Psiquiátricos',
           left: 'center',
-          top: '0%',
+          top: 0,
         },
         tooltip: {
           trigger: 'item',
+          left: 'right',
         },
         legend: {
-          bottom: '',
-          left: 'center',
+          left: 'right',
+          top: 500,
           Data: arrayString,
         },
         grid: {
-          top: '7%',
+          top: '0%',
           left: '0%',
           right: '0%',
-          bottom: '0%',
+          bottom: '20%',
           containLabel: true,
-        },
-        xAxis: {
-          type: 'value',
-          boundaryGap: [0, 0.12],
-          axisLabel: { interval: 0, rotate: 0 },
-          with: '100',
-        },
-        yAxis: {
-          type: 'category',
-          data: arrayString,
         },
         series: [
           {
             label: {
-              formatter: '{d|{c}}',
+              formatter: '{d|{d}%}',
               show: true,
-              position: 'right',
               size: 40,
               lineHeight: 56,
               rich: {
                 d: {
-                  color: 'white',
+                  color: '#4C5058',
+                  padding: [10, 10, 10, 10],
                   fontSize: 14,
                   fontWeight: 'bold',
                   lineHeight: 33,
-                  marginLeft: 0,
+                  marginLeft: 1,
                 },
               },
             },
             labelLine: {
-              show: false,
-              length: 10,
+              show: true,
+              length: 1,
+              length2: 10,
             },
-            barWidth: '10%',
-            roseType: 'area',
             avoidLabelOverlap: false,
-            type: 'bar',
+            type: 'pie',
             itemStyle: {
-              borderRadius: 8,
+              borderRadius: 0,
             },
             data: response.data.map((item: any) => ({
-              name: item.VeiculoDS !== null ? item.VeiculoDS : 'Não informado',
+              name: item.MotivoDS !== null ? item.MotivoDS : 'Não informado',
               value: item.Total_Ocorrencias,
             })),
             emphasis: {
@@ -95,6 +96,19 @@ function ModalScreen() {
                 shadowColor: 'rgba(0, 0, 0, 0.5)',
               },
             },
+            radius: ['40%', '60%'],
+            // clockwise: false,
+            // startAngle: 360,
+            // endAngle: 180,
+            minAngle: 5,
+            padAngle: 0,
+            minShowLabelAngle: 0,
+            bottom: 100,
+            top: -160,
+            left: '0%',
+            right: '0%',
+            width: '100%',
+            height: '65%',
           },
         ],
       }));
@@ -108,17 +122,17 @@ function ModalScreen() {
   }, []);
 
   return (
-    <ScrollView horizontal={false} style={styles.container}>
-      <View style={styles.button}>
-        <Icon
-          name="reload"
-          size={30}
-          color="white"
-          onPress={fetchData}
-          style={{ paddingHorizontal: 4, paddingVertical: 4 }}
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={fetchData}
+          progressViewOffset={60}
         />
-      </View>
-      <></>
+      }
+    >
+      <SkiaComponent option={option} width={0} height={1370} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>
   );

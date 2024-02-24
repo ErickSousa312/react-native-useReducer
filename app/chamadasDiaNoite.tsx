@@ -21,79 +21,67 @@ function ModalScreen() {
 
   const fetchData = async () => {
     try {
-      const response = await AxiosGet('atendimentoVeiculo');
+      const response = await AxiosGet('atendimentoTipoOcorrencia');
       setDataFetch(response.data);
       setRefreshing(false);
+      console.log(response.data);
 
-      const arrayString = response.data.map((item: any) =>
-        String(item.VeiculoDS),
-      );
+      const arrayString = response.data.map((item: any) => String(item.TipoDS));
 
       setData((prevState) => ({
         ...prevState,
-        with: 500,
+        color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
         title: {
-          text: '',
+          text: 'Distribuição de chamadas dia/noite',
           left: 'center',
-          top: '0%',
+          top: '1%',
         },
         tooltip: {
           trigger: 'item',
         },
         legend: {
-          bottom: '',
+          bottom: '1%',
           left: 'center',
           Data: arrayString,
         },
         grid: {
-          top: '15%',
+          top: '0%',
           left: '0%',
           right: '0%',
           bottom: '0%',
           containLabel: true,
         },
-        xAxis: {
-          type: 'value',
-          boundaryGap: [0, 0.12],
-          axisLabel: { interval: 0, rotate: 0 },
-          with: '100',
-        },
-        yAxis: {
-          type: 'category',
-          data: arrayString,
-        },
         series: [
           {
             label: {
-              formatter: '{d|{c}}',
+              formatter: '{d|{d}%}',
               show: true,
-              position: 'right',
               size: 40,
               lineHeight: 56,
               rich: {
                 d: {
-                  color: 'white',
+                  color: '#4C5058',
+                  padding: [10, 10, 10, 10],
                   fontSize: 14,
                   fontWeight: 'bold',
                   lineHeight: 33,
-                  marginLeft: 0,
+                  marginLeft: 100,
                 },
               },
             },
             labelLine: {
-              show: false,
+              show: true,
               length: 10,
+              length2: 10,
             },
-            barWidth: '10%',
-            roseType: 'area',
+            radius: ['30%', '60%'],
             avoidLabelOverlap: false,
-            type: 'bar',
+            type: 'pie',
             itemStyle: {
               borderRadius: 8,
-              with: '100%',
             },
             data: response.data.map((item: any) => ({
-              name: item.VeiculoDS !== null ? item.VeiculoDS : 'Não informado',
+              name: item.TipoDS !== null ? item.TipoDS : 'Não informado',
               value: item.Total_Ocorrencias,
             })),
             emphasis: {
@@ -117,7 +105,6 @@ function ModalScreen() {
 
   return (
     <ScrollView
-      horizontal={false}
       style={styles.container}
       refreshControl={
         <RefreshControl
@@ -127,7 +114,7 @@ function ModalScreen() {
         />
       }
     >
-      <SkiaComponent option={option} width={-20} height={800} />
+      <SkiaComponent option={option} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>
   );

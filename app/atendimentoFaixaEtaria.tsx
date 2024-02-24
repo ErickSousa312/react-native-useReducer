@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, Button } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  Button,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { SkiaComponent } from '@/components/echarts/graficEcharts';
 import { AxiosGet } from '@/components/axios/axiosGet';
@@ -11,10 +17,12 @@ import { View } from '@/components/Themed';
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
+  const [refreshing, setRefreshing] = useState(true);
 
   const fetchData = async () => {
     try {
       const response = await AxiosGet('atendimentoFaixaEtaria');
+      setRefreshing(false);
       setDataFetch(response.data);
       console.log(response.data);
 
@@ -22,11 +30,11 @@ function ModalScreen() {
 
       setData((prevState) => ({
         ...prevState,
-        title: {
-          text: 'Atendimentos por Faixa Etária',
-          left: 'center',
-          top: '0%',
-        },
+        // title: {
+        //   text: 'Atendimentos por Faixa Etária',
+        //   left: 'center',
+        //   top: '0%',
+        // },
         tooltip: {
           trigger: 'item',
         },
@@ -97,16 +105,16 @@ function ModalScreen() {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.button}>
-        <Icon
-          name="reload"
-          size={30}
-          color="white"
-          onPress={fetchData}
-          style={{ paddingHorizontal: 10, paddingVertical: 10 }}
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={fetchData}
+          progressViewOffset={60}
         />
-      </View>
+      }
+    >
       <SkiaComponent option={option} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>

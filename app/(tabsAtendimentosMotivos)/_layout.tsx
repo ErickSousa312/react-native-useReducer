@@ -13,7 +13,7 @@ function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
 }) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={24} style={{ marginBottom: -3 }} {...props} />;
 }
 
 export default function TabLayout() {
@@ -31,6 +31,7 @@ export default function TabLayout() {
           borderTopWidth: 0,
           elevation: 0,
         },
+        unmountOnBlur: true,
         headerShown: false,
         tabBarShowLabel: false,
         tabBarBackground: () => <BlurView tint="light" intensity={100} />,
@@ -39,7 +40,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="asterisk" color={color} />
+          ),
 
           // headerRight: () => (
           //   <Link href="/modal" asChild>
@@ -61,7 +64,41 @@ export default function TabLayout() {
         name="two"
         options={{
           title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="leaf" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="three"
+        options={{
+          title: 'Tab Two',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="bar-chart-o" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="four"
+        options={{
+          title: 'Tab four',
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="bookmark-o" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="five"
+        options={{
+          // tabBarLabel: 'teste',
+          // tabBarShowLabel: true,
+          title: 'Tab four',
+          tabBarIcon: ({ color }) => <TabBarIcon name="tasks" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="six"
+        options={{
+          title: 'Tab four',
+          tabBarIcon: ({ color }) => <TabBarIcon name="cloud" color={color} />,
         }}
       />
     </Tabs>

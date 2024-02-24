@@ -19,7 +19,6 @@ function Item(props: any) {
 }
 
 export function TableData(props: any) {
-  console.log(props);
   return (
     <FlatList
       style={styles.flatList}

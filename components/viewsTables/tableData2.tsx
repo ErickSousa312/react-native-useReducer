@@ -1,8 +1,9 @@
 import { FlatList, SafeAreaView, View, Text, StatusBar } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+
 function Item(props: any) {
-  console.log(props);
   return (
     <View style={styles.item}>
       <View style={styles.item2}>
@@ -23,10 +24,11 @@ function Item(props: any) {
 }
 
 export function TableData(props: any) {
+  const tabBarHeight = useBottomTabBarHeight();
   console.log(props);
   return (
     <FlatList
-      style={styles.flatList}
+      style={[styles.flatList, { marginBottom: tabBarHeight }]}
       data={props.dados}
       renderItem={({ item }: any) => (
         <Item

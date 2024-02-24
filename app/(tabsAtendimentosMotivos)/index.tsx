@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, Button } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  Button,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { SkiaComponent } from '@/components/echarts/graficEcharts';
 import { AxiosGet } from '@/components/axios/axiosGet';
@@ -11,6 +17,7 @@ import { View } from '@/components/Themed';
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
+  const [refreshing, setRefreshing] = useState(true);
 
   const fetchData = async () => {
     try {
@@ -18,7 +25,9 @@ function ModalScreen() {
         'atendimentoMotivosOcorrencia',
         'PSIQUIÁTRICO',
       );
+      setRefreshing(false);
       setDataFetch(response.data);
+      console.log(response.data.lenght + 'oiiiiiiiiiiiiiiiiiii');
 
       const arrayString = response.data.map((item: any) =>
         String(item.MotivoDS),
@@ -94,7 +103,7 @@ function ModalScreen() {
             padAngle: 0,
             minShowLabelAngle: 0,
             bottom: 1,
-            top: 0,
+            top: 35,
             left: '0%',
             right: '0%',
             width: '100%',
@@ -112,18 +121,19 @@ function ModalScreen() {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.button}>
-        <Icon
-          name="reload"
-          size={30}
-          color="white"
-          onPress={fetchData}
-          style={{ paddingHorizontal: 10, paddingVertical: 10 }}
+    <ScrollView
+      style={[styles.container]}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={fetchData}
+          progressViewOffset={60}
         />
-      </View>
+      }
+    >
       <SkiaComponent option={option} width={0} height={680} />
       <TableData dados={dataFetch}></TableData>
+      <View></View>
     </ScrollView>
   );
 }

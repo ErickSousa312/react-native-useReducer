@@ -1,22 +1,33 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, Button } from 'react-native';
+import {
+  StyleSheet,
+  ScrollView,
+  Button,
+  RefreshControl,
+  ActivityIndicator,
+  Dimensions,
+} from 'react-native';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { SkiaComponent } from '@/components/echarts/graficEcharts';
 import { AxiosGet } from '@/components/axios/axiosGet';
 import { TableData } from '@/components/viewsTables/tableData';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View } from '@/components/Themed';
+import { useNavigation } from '@react-navigation/native';
+import { ExternalLink } from '../components/ExternalLink';
 
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
+  const [refreshing, setRefreshing] = useState(true);
+  const navigation = useNavigation();
 
   const fetchData = async () => {
     try {
       const response = await AxiosGet('atendimentosSexo');
+      setRefreshing(false);
       setDataFetch(response.data);
-      console.log(response.data);
       const totalAtendimentosArray = response.data.map(
         (item: any) => item.Total_Ocorrencias,
       );
@@ -24,17 +35,16 @@ function ModalScreen() {
         String(item.Total_Ocorrencias),
       );
 
-      console.log(arrayString);
       const labelVeiculos = response.data.map((item: any) => item.SexoDS);
 
       setData((prevState) => ({
         ...prevState,
         color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
-        title: {
-          text: 'Atendimentos por Sexo',
-          left: 'center',
-          top: '1%',
-        },
+        // title: {
+        //   text: 'Atendimentos por Sexo',
+        //   left: 'center',
+        //   top: '1%',
+        // },
         tooltip: {
           trigger: 'item',
         },
@@ -103,16 +113,16 @@ function ModalScreen() {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.button}>
-        <Icon
-          name="reload"
-          size={30}
-          color="white"
-          onPress={fetchData}
-          style={{ paddingHorizontal: 10, paddingVertical: 10 }}
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={fetchData}
+          progressViewOffset={60}
         />
-      </View>
+      }
+    >
       <SkiaComponent option={option} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>
