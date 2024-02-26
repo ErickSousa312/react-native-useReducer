@@ -25,7 +25,6 @@ function Item(props: any) {
 
 export function TableData(props: any) {
   const tabBarHeight = useBottomTabBarHeight();
-  console.log(props);
   return (
     <FlatList
       style={[styles.flatList, { marginBottom: tabBarHeight }]}
