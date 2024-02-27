@@ -24,7 +24,7 @@ function ModalScreen() {
       const response = await AxiosGet('atendimentoTipoOcorrencia');
       setDataFetch(response.data);
       setRefreshing(false);
-      console.log(response.data);
+      response.data;
 
       const arrayString = response.data.map((item: any) => String(item.TipoDS));
 

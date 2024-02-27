@@ -40,7 +40,7 @@ export function SkiaComponent({
   width?: number;
   height?: number;
 }) {
-  console.log(option);
+  (option);
   const E_HEIGHT = height !== undefined ? height | 0 : 520;
   const E_WIDTH =
     Dimensions.get('screen').width + (width !== undefined ? width | 0 : 0);

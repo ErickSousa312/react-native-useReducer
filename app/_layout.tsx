@@ -87,7 +87,7 @@ export default function App() {
             drawerLabelStyle: { marginLeft: -15 },
           }}
         />
-        <Drawer.Screen
+        {/* <Drawer.Screen
           name="TodoList"
           options={{
             drawerLabel: 'To do list',
@@ -97,7 +97,7 @@ export default function App() {
             drawerIcon: () => <Ionicons name="albums" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
           }}
-        />
+        /> */}
         {/* //3 */}
         <Drawer.Screen
           name="atendimentoFaixaEtaria"
@@ -156,9 +156,87 @@ export default function App() {
           }}
         />
         <Drawer.Screen
-          name="modal copy 8"
+          name="tempoDeResposta"
           options={{
-            drawerLabel: 'Pec',
+            title: 'Tempo de Resposta',
+            drawerLabel: 'tempo de Resposta',
+            drawerPosition: 'left',
+            drawerType: 'slide',
+            drawerIcon: () => <Ionicons name="pie-chart" size={20}></Ionicons>,
+            drawerLabelStyle: { marginLeft: -15 },
+          }}
+        />
+        <Drawer.Screen
+          name="tempoNoLocal"
+          options={{
+            title: 'Tempo no local',
+            drawerLabel: 'Tempo no Local',
+            drawerPosition: 'left',
+            drawerType: 'slide',
+            drawerIcon: () => <Ionicons name="pie-chart" size={20}></Ionicons>,
+            drawerLabelStyle: { marginLeft: -15 },
+          }}
+        />
+        <Drawer.Screen
+          name="tempoSaidaLocal"
+          options={{
+            title: 'Tempo Saida do local',
+            drawerLabel: 'Tempo Saida do local',
+            drawerPosition: 'left',
+            drawerType: 'slide',
+            drawerIcon: () => <Ionicons name="pie-chart" size={20}></Ionicons>,
+            drawerLabelStyle: { marginLeft: -15 },
+          }}
+        />
+        <Drawer.Screen
+          name="destinoPaciente"
+          options={{
+            title: 'Destino Pacientes',
+            drawerLabel: 'Destino Pacientes',
+            drawerPosition: 'left',
+            drawerType: 'slide',
+            drawerIcon: () => <Ionicons name="pie-chart" size={20}></Ionicons>,
+            drawerLabelStyle: { marginLeft: -15 },
+          }}
+        />
+        <Drawer.Screen
+          name="transferencias"
+          options={{
+            title: 'Transferencias',
+            drawerLabel: 'Transferencias',
+            drawerPosition: 'left',
+            drawerType: 'slide',
+            drawerIcon: () => <Ionicons name="pie-chart" size={20}></Ionicons>,
+            drawerLabelStyle: { marginLeft: -15 },
+          }}
+        />
+        <Drawer.Screen
+          name="obitos"
+          options={{
+            title: 'obitos',
+            drawerLabel: 'Obitos',
+            drawerPosition: 'left',
+            drawerType: 'slide',
+            drawerIcon: () => <Ionicons name="pie-chart" size={20}></Ionicons>,
+            drawerLabelStyle: { marginLeft: -15 },
+          }}
+        />
+        <Drawer.Screen
+          name="bairro"
+          options={{
+            title: 'Atendimento por Bairros',
+            drawerLabel: 'Atendimento por Bairros',
+            drawerPosition: 'left',
+            drawerType: 'slide',
+            drawerIcon: () => <Ionicons name="pie-chart" size={20}></Ionicons>,
+            drawerLabelStyle: { marginLeft: -15 },
+          }}
+        />
+        <Drawer.Screen
+          name="cancelamentoChamada"
+          options={{
+            title: 'Motivos de Cancelamento',
+            drawerLabel: 'Motivos de Cancelamento',
             drawerPosition: 'left',
             drawerType: 'slide',
             drawerIcon: () => <Ionicons name="pie-chart" size={20}></Ionicons>,

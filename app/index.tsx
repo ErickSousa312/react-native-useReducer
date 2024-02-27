@@ -7,6 +7,9 @@ import {
   RefreshControl,
   ActivityIndicator,
   Dimensions,
+  TextInput,
+  Pressable,
+  Text,
 } from 'react-native';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { SkiaComponent } from '@/components/echarts/graficEcharts';
@@ -16,16 +19,22 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { View } from '@/components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import { ExternalLink } from '../components/ExternalLink';
+import Color from 'color';
 
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
   const [refreshing, setRefreshing] = useState(true);
+  const [mes, setMes] = useState('');
+  const [ano, setAno] = useState('');
   const navigation = useNavigation();
 
   const fetchData = async () => {
     try {
-      const response = await AxiosGet('atendimentosSexo');
+      const response = await AxiosGet('atendimentosSexo', {
+        mes: mes,
+        ano: ano,
+      });
       setRefreshing(false);
       setDataFetch(response.data);
       const totalAtendimentosArray = response.data.map(
@@ -38,7 +47,6 @@ function ModalScreen() {
       const labelVeiculos = response.data.map((item: any) => item.SexoDS);
 
       setData((prevState) => ({
-        ...prevState,
         color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
         // title: {
         //   text: 'Atendimentos por Sexo',
@@ -49,7 +57,7 @@ function ModalScreen() {
           trigger: 'item',
         },
         legend: {
-          bottom: '1%',
+          bottom: 0,
           left: 'center',
           Data: arrayString,
         },
@@ -93,6 +101,7 @@ function ModalScreen() {
               name: item.SexoDS !== null ? item.SexoDS : 'Não informado',
               value: item.Total_Ocorrencias,
             })),
+            top: -40,
             emphasis: {
               itemStyle: {
                 shadowBlur: 10,
@@ -123,7 +132,43 @@ function ModalScreen() {
         />
       }
     >
-      <SkiaComponent option={option} />
+      <View style={styles.container2}>
+        <TextInput
+          style={[styles.input]}
+          placeholder="Selecione o Mês"
+          value={mes}
+          onChangeText={setMes}
+          cursorColor={'red'}
+          maxLength={2}
+          keyboardType="numeric"
+          placeholderTextColor="white"
+        />
+        <TextInput
+          style={[styles.input2]}
+          placeholder="Selecione o Ano"
+          value={ano}
+          onChangeText={setAno}
+          cursorColor={'red'}
+          maxLength={4}
+          keyboardType="numeric"
+          placeholderTextColor="white"
+        />
+        <Pressable
+          onPress={() => {
+            setRefreshing(true);
+            fetchData();
+          }}
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? '#5cacf7' : '#2196F3',
+            },
+            styles.button,
+          ]}
+        >
+          <Text style={{ color: 'white' }}>Pesquisar</Text>
+        </Pressable>
+      </View>
+      <SkiaComponent option={option} height={350} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>
   );
@@ -135,10 +180,47 @@ const styles = StyleSheet.create({
     backgroundColor: '#100C2A',
     width: 'auto',
   },
-  button: {
+  container2: {
+    flex: 1,
     backgroundColor: '#100C2A',
-    marginLeft: 2,
-    alignSelf: 'flex-end',
+    width: 'auto',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  button: {
+    width: 90,
+    paddingVertical: 8,
+    marginTop: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    margin: 1,
+    borderColor: 'black',
+    marginLeft: 7,
+  },
+  input: {
+    marginLeft: '1%',
+    width: 140,
+    paddingLeft: 14,
+    paddingVertical: 8,
+    borderRadius: 10,
+    margin: 1,
+    borderWidth: 1,
+    borderColor: 'white',
+    marginTop: 100,
+    color: 'white',
+  },
+  input2: {
+    marginLeft: '1%',
+    width: 140,
+    paddingLeft: 14,
+    paddingVertical: 8,
+    borderRadius: 10,
+    margin: 1,
+    borderWidth: 1,
+    borderColor: 'white',
+    marginTop: 100,
+    color: 'white',
   },
 });
 export default gestureHandlerRootHOC(ModalScreen);

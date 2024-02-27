@@ -12,11 +12,11 @@ function ModalScreen() {
   const fetchData = async () => {
     try {
       const response = await AxiosGet('atendimentosSexo');
-      console.log(response.data);
+      (response.data);
       const totalAtendimentosArray = response.data.map(
         (item: any) => item.Total_Ocorrencias,
       );
-      console.log(totalAtendimentosArray);
+      (totalAtendimentosArray);
       const labelVeiculos = response.data.map((item: any) => item.SexoDS);
 
       setData((prevState) => ({

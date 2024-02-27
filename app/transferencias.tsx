@@ -21,14 +21,12 @@ function ModalScreen() {
 
   const fetchData = async () => {
     try {
-      const response = await AxiosGet('atendimentoChamadasDiaNoite');
+      const response = await AxiosGet('transferencias');
       setDataFetch(response.data);
       setRefreshing(false);
       response.data;
 
-      const arrayString = response.data.map((item: any) =>
-        String(item.PeriodoDia),
-      );
+      const arrayString = response.data.map((item: any) => String(item.TipoDS));
 
       setData((prevState) => ({
         ...prevState,
@@ -83,8 +81,7 @@ function ModalScreen() {
               borderRadius: 8,
             },
             data: response.data.map((item: any) => ({
-              name:
-                item.PeriodoDia !== null ? item.PeriodoDia : 'Não informado',
+              name: item.TipoDS !== null ? item.TipoDS : 'Não informado',
               value: item.Total_Ocorrencias,
             })),
             emphasis: {

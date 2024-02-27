@@ -2,7 +2,7 @@ import { FlatList, SafeAreaView, View, Text, StatusBar } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 function Item(props: any) {
-  console.log(props);
+  props;
   return (
     <View style={styles.item}>
       <View style={styles.item2}>

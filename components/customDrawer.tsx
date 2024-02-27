@@ -29,7 +29,7 @@ export default function CustomDrawerContent(props: any) {
         <View style={styles.borda}></View>
         <DrawerItem
           label={'Logout'}
-          onPress={() => console.log('oi')}
+          onPress={() => 'oi'}
           icon={() => (
             <Ionicons
               style={{ alignSelf: 'center', position: 'relative', left: 80 }}

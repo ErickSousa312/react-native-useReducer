@@ -17,7 +17,7 @@ export default function Forms() {
   const [idTaks, setIdTaks] = useState<number>(3);
   function handleAddTask(text: string) {
     setIdTaks(idTaks + 1);
-    console.log(idTaks + 'oi');
+    idTaks + 'oi';
     dispatch({
       type: 'added',
       id: idTaks,
@@ -26,7 +26,7 @@ export default function Forms() {
   }
 
   function handleChangeTask(task: any) {
-    console.log(task);
+    task;
     dispatch({
       type: 'changed',
       task: task,

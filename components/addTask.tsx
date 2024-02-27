@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { TextInput, Button, StyleSheet, Pressable } from 'react-native';
+import {
+  TextInput,
+  Button,
+  StyleSheet,
+  Pressable,
+  SafeAreaView,
+} from 'react-native';
 import { Text, View } from './Themed';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -21,7 +27,9 @@ export default function AddTask({ onAddTask }: any) {
         }}
         style={({ pressed }) => [
           {
-            backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
+            backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'bluw',
+            borderRadius: 8,
+            padding: 6,
           },
           styles.button,
         ]}

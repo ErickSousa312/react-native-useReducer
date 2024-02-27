@@ -21,13 +21,13 @@ function ModalScreen() {
 
   const fetchData = async () => {
     try {
-      const response = await AxiosGet('atendimentoChamadasDiaNoite');
+      const response = await AxiosGet('destinoPaciente');
       setDataFetch(response.data);
       setRefreshing(false);
       response.data;
 
       const arrayString = response.data.map((item: any) =>
-        String(item.PeriodoDia),
+        String(item.UnidadeDS),
       );
 
       setData((prevState) => ({
@@ -82,9 +82,9 @@ function ModalScreen() {
             itemStyle: {
               borderRadius: 8,
             },
+            top: -900,
             data: response.data.map((item: any) => ({
-              name:
-                item.PeriodoDia !== null ? item.PeriodoDia : 'Não informado',
+              name: item.UnidadeDS !== null ? item.UnidadeDS : 'Não informado',
               value: item.Total_Ocorrencias,
             })),
             emphasis: {
@@ -117,7 +117,7 @@ function ModalScreen() {
         />
       }
     >
-      <SkiaComponent option={option} />
+      <SkiaComponent option={option} height={1400} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>
   );

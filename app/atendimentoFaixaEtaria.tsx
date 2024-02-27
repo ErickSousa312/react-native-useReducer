@@ -24,7 +24,7 @@ function ModalScreen() {
       const response = await AxiosGet('atendimentoFaixaEtaria');
       setRefreshing(false);
       setDataFetch(response.data);
-      console.log(response.data);
+      response.data;
 
       const arrayString = response.data.map((item: any) => String(item.TipoDS));
 

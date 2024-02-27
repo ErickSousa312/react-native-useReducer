@@ -30,7 +30,6 @@ function ModalScreen() {
 
       const arrayString = response.data.map((item: any, index: number) => {
         String(item.MotivoDS);
-        console.log(index + 'oiiiiiiiiiiiiiiiiiii');
       });
 
       setData((prevState) => ({

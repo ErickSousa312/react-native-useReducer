@@ -27,7 +27,7 @@ function ModalScreen() {
       );
       setRefreshing(false);
       setDataFetch(response.data);
-      console.log(response.data.lenght + 'oiiiiiiiiiiiiiiiiiii');
+      response.data.lenght + 'oiiiiiiiiiiiiiiiiiii';
 
       const arrayString = response.data.map((item: any) =>
         String(item.MotivoDS),

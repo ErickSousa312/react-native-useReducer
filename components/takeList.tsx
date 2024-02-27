@@ -26,14 +26,14 @@ function Task({ index, task, onChange, onDelete }: any) {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   let taskContent;
-  console.log(isEditing);
+  isEditing;
   if (isEditing) {
     taskContent = (
       <>
         <TextInput
           value={task.text}
           onChangeText={(text) => {
-            console.log(task);
+            task;
             onChange({
               ...task,
               text: text,
