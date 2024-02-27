@@ -21,13 +21,11 @@ function ModalScreen() {
 
   const fetchData = async () => {
     try {
-      const response = await AxiosGet(
-        'atendimentoMotivosOcorrencia',
-        'PSIQUIÁTRICO',
-      );
+      const response = await AxiosGet('atendimentoMotivosOcorrencia', {
+        query: 'PSIQUIÁTRICO',
+      });
       setRefreshing(false);
       setDataFetch(response.data);
-      response.data.lenght + 'oiiiiiiiiiiiiiiiiiii';
 
       const arrayString = response.data.map((item: any) =>
         String(item.MotivoDS),

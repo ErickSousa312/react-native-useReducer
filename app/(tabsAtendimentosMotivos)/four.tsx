@@ -21,10 +21,9 @@ function ModalScreen() {
 
   const fetchData = async () => {
     try {
-      const response = await AxiosGet(
-        'atendimentoMotivosOcorrencia',
-        'CLINICO',
-      );
+      const response = await AxiosGet('atendimentoMotivosOcorrencia', {
+        query: 'CLINICO',
+      });
       setRefreshing(false);
       setDataFetch(response.data);
 

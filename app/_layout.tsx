@@ -75,10 +75,10 @@ export default function App() {
           // headerShown: false,
         }}
         drawerContent={CustomDrawerContent}
-        initialRouteName="index"
+        initialRouteName="atendimentoSexo"
       >
         <Drawer.Screen
-          name="index"
+          name="atendimentoSexo"
           options={{
             drawerLabel: 'Atendimentos por Sexo',
             title: 'Atendimentos por Sexo',
