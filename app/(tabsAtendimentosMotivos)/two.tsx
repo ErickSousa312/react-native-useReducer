@@ -13,16 +13,19 @@ import { AxiosGet } from '@/components/axios/axiosGet';
 import { TableData } from '@/components/viewsTables/tableData2';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View } from '@/components/Themed';
+import MonthYear from '@/components/formData/monthAndYear';
 
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
   const [refreshing, setRefreshing] = useState(true);
 
-  const fetchData = async () => {
+  const fetchData = async (ano?: any, mes?: any) => {
     try {
       const response = await AxiosGet('atendimentoMotivosOcorrencia', {
         query: 'PEDIATRICO',
+        mes: mes || '',
+        ano: ano || '',
       });
       setRefreshing(false);
       setDataFetch(response.data);
@@ -35,16 +38,16 @@ function ModalScreen() {
         ...prevState,
         color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
         title: {
-          text: 'Atendimentos Psiquiátricos',
+          text: 'Atendimentos Pediátrico',
           left: 'center',
-          top: 0,
+          top: 20,
         },
         tooltip: {
           trigger: 'item',
           left: 'right',
         },
         legend: {
-          top: 420,
+          top: '420',
           Data: arrayString,
         },
         grid: {
@@ -125,15 +128,7 @@ function ModalScreen() {
         <RefreshControl refreshing={refreshing} onRefresh={fetchData} />
       }
     >
-      <View style={styles.button}>
-        <Icon
-          name="reload"
-          size={30}
-          color="white"
-          onPress={fetchData}
-          style={{ paddingHorizontal: 10, paddingVertical: 10 }}
-        />
-      </View>
+      <MonthYear fetchData={fetchData} setRefreshing={setRefreshing} />
       <SkiaComponent option={option} width={0} height={680} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>

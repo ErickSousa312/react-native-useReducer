@@ -13,15 +13,19 @@ import { AxiosGet } from '@/components/axios/axiosGet';
 import { TableData } from '@/components/viewsTables/tableData';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View } from '@/components/Themed';
+import MonthYear from '@/components/formData/monthAndYear';
 
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
   const [refreshing, setRefreshing] = useState(true);
 
-  const fetchData = async () => {
+  const fetchData = async (ano?: any, mes?: any) => {
     try {
-      const response = await AxiosGet('destinoPaciente');
+      const response = await AxiosGet('destinoPaciente', {
+        mes: mes || '',
+        ano: ano || '',
+      });
       setDataFetch(response.data);
       setRefreshing(false);
       response.data;
@@ -36,13 +40,14 @@ function ModalScreen() {
         title: {
           text: 'Distribuição de chamadas dia/noite',
           left: 'center',
-          top: '1%',
+          top: 20,
         },
         tooltip: {
           trigger: 'item',
         },
         legend: {
-          bottom: '1%',
+          top: 400,
+          // bottom: '1%',
           left: 'center',
           Data: arrayString,
         },
@@ -82,7 +87,7 @@ function ModalScreen() {
             itemStyle: {
               borderRadius: 8,
             },
-            top: -900,
+            top: -250,
             data: response.data.map((item: any) => ({
               name: item.UnidadeDS !== null ? item.UnidadeDS : 'Não informado',
               value: item.Total_Ocorrencias,
@@ -117,7 +122,8 @@ function ModalScreen() {
         />
       }
     >
-      <SkiaComponent option={option} height={1400} />
+      <MonthYear fetchData={fetchData} setRefreshing={setRefreshing} />
+      <SkiaComponent option={option} height={700} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>
   );

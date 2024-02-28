@@ -153,6 +153,7 @@ export default function App() {
             drawerType: 'slide',
             drawerIcon: () => <Ionicons name="shapes" size={20}></Ionicons>,
             drawerLabelStyle: { marginLeft: -15 },
+            unmountOnBlur: true,
           }}
         />
         <Drawer.Screen

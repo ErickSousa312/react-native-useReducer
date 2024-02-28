@@ -20,20 +20,19 @@ import { View } from '@/components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import { ExternalLink } from '../components/ExternalLink';
 import Color from 'color';
+import MonthYear from '@/components/formData/monthAndYear';
 
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
   const [refreshing, setRefreshing] = useState(true);
-  const [mes, setMes] = useState('');
-  const [ano, setAno] = useState('');
   const navigation = useNavigation();
 
-  const fetchData = async () => {
+  const fetchData = async (ano?: any, mes?: any) => {
     try {
       const response = await AxiosGet('atendimentosSexo', {
-        mes: mes,
-        ano: ano,
+        mes: mes || '',
+        ano: ano || '',
       });
       setRefreshing(false);
       setDataFetch(response.data);
@@ -132,42 +131,7 @@ function ModalScreen() {
         />
       }
     >
-      <View style={styles.container2}>
-        <TextInput
-          style={[styles.input]}
-          placeholder="Selecione o Mês"
-          value={mes}
-          onChangeText={setMes}
-          cursorColor={'red'}
-          maxLength={2}
-          keyboardType="numeric"
-          placeholderTextColor="white"
-        />
-        <TextInput
-          style={[styles.input2]}
-          placeholder="Selecione o Ano"
-          value={ano}
-          onChangeText={setAno}
-          cursorColor={'red'}
-          maxLength={4}
-          keyboardType="numeric"
-          placeholderTextColor="white"
-        />
-        <Pressable
-          onPress={() => {
-            setRefreshing(true);
-            fetchData();
-          }}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? '#5cacf7' : '#2196F3',
-            },
-            styles.button,
-          ]}
-        >
-          <Text style={{ color: 'white' }}>Pesquisar</Text>
-        </Pressable>
-      </View>
+      <MonthYear fetchData={fetchData} setRefreshing={setRefreshing} />
       <SkiaComponent option={option} height={350} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>

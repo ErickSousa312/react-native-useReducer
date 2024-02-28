@@ -13,15 +13,19 @@ import { AxiosGet } from '@/components/axios/axiosGet';
 import { TableData } from '@/components/viewsTables/tableData';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { View } from '@/components/Themed';
+import MonthYear from '@/components/formData/monthAndYear';
 
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
   const [refreshing, setRefreshing] = useState(true);
 
-  const fetchData = async () => {
+  const fetchData = async (ano?: any, mes?: any) => {
     try {
-      const response = await AxiosGet('atendimentoVeiculo');
+      const response = await AxiosGet('atendimentoVeiculo', {
+        mes: mes || '',
+        ano: ano || '',
+      });
       setDataFetch(response.data);
       setRefreshing(false);
 
@@ -46,7 +50,7 @@ function ModalScreen() {
           Data: arrayString,
         },
         grid: {
-          top: '15%',
+          top: '       5%',
           left: '0%',
           right: '0%',
           bottom: '0%',
@@ -127,6 +131,7 @@ function ModalScreen() {
         />
       }
     >
+      <MonthYear fetchData={fetchData} setRefreshing={setRefreshing} />
       <SkiaComponent option={option} width={-20} height={800} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>

@@ -10,7 +10,7 @@ import AddTask from '@/components/addTask';
 import { SafeAreaView } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
-import { DispatchType } from '../@types/forms';
+import { DispatchType } from '../../@types/forms';
 
 export default function Forms() {
   const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
