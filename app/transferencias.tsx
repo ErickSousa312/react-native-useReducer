@@ -36,9 +36,9 @@ function ModalScreen() {
         ...prevState,
         color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
         title: {
-          text: 'Distribuição de chamadas dia/noite',
+          text: '',
           left: 'center',
-          top: 20,
+          top: 0,
         },
         tooltip: {
           trigger: 'item',

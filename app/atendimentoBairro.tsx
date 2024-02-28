@@ -11,17 +11,19 @@ import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
 import { SkiaComponent } from '@/components/echarts/graficEcharts';
 import { AxiosGet } from '@/components/axios/axiosGet';
 import { TableData } from '@/components/viewsTables/tableData';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { View } from '@/components/Themed';
+import MonthYear from '@/components/formData/monthAndYear';
 
 function ModalScreen() {
   const [option, setData] = useState({});
   const [dataFetch, setDataFetch] = useState();
   const [refreshing, setRefreshing] = useState(true);
 
-  const fetchData = async () => {
+  const fetchData = async (ano?: any, mes?: any) => {
     try {
-      const response = await AxiosGet('atendimentosPorBairo');
+      const response = await AxiosGet('atendimentosPorBairo', {
+        mes: mes || '',
+        ano: ano || '',
+      });
       setDataFetch(response.data);
       setRefreshing(false);
 
@@ -33,13 +35,13 @@ function ModalScreen() {
         title: {
           text: 'Distribuição de chamadas dia/noite',
           left: 'center',
-          top: '1%',
+          top: 20,
         },
         tooltip: {
           trigger: 'item',
         },
         legend: {
-          bottom: '1%',
+          top: 500,
           left: 'center',
           Data: arrayString,
         },
@@ -90,6 +92,7 @@ function ModalScreen() {
                 shadowColor: 'rgba(0, 0, 0, 0.5)',
               },
             },
+            top: -490,
           },
         ],
       }));
@@ -113,7 +116,8 @@ function ModalScreen() {
         />
       }
     >
-      <SkiaComponent option={option} />
+      <MonthYear fetchData={fetchData} setRefreshing={setRefreshing} />
+      <SkiaComponent option={option} height={1000} />
       <TableData dados={dataFetch}></TableData>
     </ScrollView>
   );

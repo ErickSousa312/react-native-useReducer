@@ -5,7 +5,14 @@ import {
 } from '@react-navigation/drawer';
 import { router } from 'expo-router';
 import Drawer from 'expo-router/drawer';
-import { View, Text, Button, Pressable, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  Pressable,
+  StyleSheet,
+  BackHandler,
+} from 'react-native';
 import {
   SafeAreaInsetsContext,
   useSafeAreaInsets,
@@ -28,8 +35,8 @@ export default function CustomDrawerContent(props: any) {
       <View style={{ paddingBottom: 5 + bottom }}>
         <View style={styles.borda}></View>
         <DrawerItem
-          label={'Logout'}
-          onPress={() => 'oi'}
+          label={'Sair'}
+          onPress={() => BackHandler.exitApp()}
           icon={() => (
             <Ionicons
               style={{ alignSelf: 'center', position: 'relative', left: 80 }}

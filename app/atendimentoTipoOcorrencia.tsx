@@ -35,9 +35,9 @@ function ModalScreen() {
         ...prevState,
         color: ['#80FFA5', '#00DDFF', '#37A2FF', '#FF0087', '#FFBF00'],
         title: {
-          text: 'Atendimentos por Tipo',
+          text: '',
           left: 'center',
-          top: '1%',
+          top: 0,
         },
         tooltip: {
           trigger: 'item',

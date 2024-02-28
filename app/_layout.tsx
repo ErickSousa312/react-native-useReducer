@@ -21,6 +21,10 @@ import { LogBox } from 'react-native';
 import React from 'react';
 import { useColorScheme } from '@/components/useColorScheme';
 LogBox.ignoreLogs(['Reanimated']);
+export const unstable_settings = {
+  // Ensure that reloading on `/modal` keeps a back button present.
+  initialRouteName: 'atendimentoSexo',
+};
 
 export default function App() {
   const colorScheme = useColorScheme();
@@ -78,7 +82,7 @@ export default function App() {
         initialRouteName="atendimentoSexo"
       >
         <Drawer.Screen
-          name="atendimentoSexo"
+          name="index"
           options={{
             drawerLabel: 'Atendimentos por Sexo',
             title: 'Atendimentos por Sexo',
@@ -223,7 +227,7 @@ export default function App() {
           }}
         />
         <Drawer.Screen
-          name="bairro"
+          name="atendimentoBairro"
           options={{
             title: 'Atendimento por Bairros',
             drawerLabel: 'Atendimento por Bairros',
