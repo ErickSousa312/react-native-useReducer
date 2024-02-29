@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "react-navigator",
-    "slug": "react-navigator",
+    "name": "react-samu",
+    "slug": "react-samu",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/samuIcon.png",
     "scheme": "myapp2",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/samuSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,15 +20,24 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/samuIcon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ericksousa312.reactsamu"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/samuIcon.png"
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f0deb4f0-481c-4ea8-b546-52383520d974"
+      }
+    }
   }
 }
