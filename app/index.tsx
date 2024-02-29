@@ -133,7 +133,7 @@ function ModalScreen() {
     >
       <MonthYear fetchData={fetchData} setRefreshing={setRefreshing} />
       <SkiaComponent option={option} height={350} />
-      <TableData dados={dataFetch}></TableData>
+      {/* <TableData dados={dataFetch}></TableData> */}
     </ScrollView>
   );
 }
