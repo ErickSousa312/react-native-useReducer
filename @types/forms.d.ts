@@ -20,3 +20,4 @@ export type ReducerType = {
   action: Action;
 };
 export type DispatchType = (args: Action) => Action;
+

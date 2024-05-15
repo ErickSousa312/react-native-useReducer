@@ -1,7 +1,11 @@
 import { Action, ReducerType, Taks, Tasks } from '@/@types/forms';
 import { initialTasks } from '@/components/takeList';
 
-export function tasksReducer(tasks: Tasks, action: Partial<Action>): Tasks {
+type teste<T> = { 
+  [P in keyof T]?: T[P]
+}
+
+export function tasksReducer(tasks: Tasks, action: teste<Action>): Tasks {
   switch (action.type) {
     case 'added': {
       action.id!;
